@@ -10,24 +10,27 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.*;
 
-@Getter
-@Setter
+@Entity
+@Getter @Setter
 @AllArgsConstructor
 @NoArgsConstructor
+@Table(name = "Tarjetas")
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Tarjeta {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Integer idTajeta;
-    private Integer numTarjeta;
+    private Integer idTarjeta; // relacion al usuario
+    private Integer numTarjeta; // nuevo numero sea nueva/reposicion
     private String marca;
     private String tipo;
     private String estado;
-    private String limExtraccion;
+    private String limExtraccion; // limite que se puede extraer dinero, max 10,000
     private String vencimiento;
-    private Double saldo;
+    private Double saldo; // preguntar si manejar el mismo de una cuenta o diferente
 
+    // variables de prueba temporales
     private Integer edadUserTest;
+    private String auntenticado;
 
 }
