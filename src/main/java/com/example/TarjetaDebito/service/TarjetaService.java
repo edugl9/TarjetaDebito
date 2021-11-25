@@ -10,6 +10,7 @@ import java.util.Optional;
 
 @Service
 public class TarjetaService {
+
     @Autowired
     private TarjetaRepositoryDao tarjetaRepositoryDao;
 
@@ -25,7 +26,11 @@ public class TarjetaService {
         return tarjetaRepositoryDao.findById(idTajeta);
     }
 
-    public Tarjeta reposicionTarjeta(Tarjeta tarjeta) {
+    public List<String> tarjetaPorIdTarjeta(Integer id) {
+        return tarjetaRepositoryDao.findTarjetaporIdTarjeta(id);
+    }
+
+    public Tarjeta activacionTarjeta(Tarjeta tarjeta) {
         return tarjetaRepositoryDao.save(tarjeta);
     }
 }
