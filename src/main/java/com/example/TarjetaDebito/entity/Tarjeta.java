@@ -25,9 +25,9 @@ public class Tarjeta {
     private String marca;
     private String tipo;
     private String estado;
-    private String limExtraccion; // limite que se puede extraer dinero, max 10,000
+    private Integer limExtraccion; // limite que se puede extraer dinero, max 10,000
     private String vencimiento;
-    private Double saldo; // preguntar si manejar el mismo de una cuenta o diferente
+    private Double saldo; // que se le asigne o tome el saldo relacionado a la cuenta, solo si se relaciona a cuenta
 
     // variables de prueba temporales
     private Integer edadUserTest;

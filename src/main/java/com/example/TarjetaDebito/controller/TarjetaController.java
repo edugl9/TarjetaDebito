@@ -30,7 +30,7 @@ public class TarjetaController {
         return ResponseEntity.ok("Finalizada");
     }
 
-//    // Detalle de tarjeta debito
+    // Detalle de tarjeta debito
 //    @GetMapping("/{idTarjeta}")
 //    public Optional<Tarjeta> getTarjetaPorUsuario(@PathVariable("idTarjeta") Integer idTarjeta){
 //        return tarjetaService.tarjetaPorId(idTarjeta);
@@ -41,23 +41,24 @@ public class TarjetaController {
         return tarjetaService.tarjetaPorIdTarjeta(idtarjeta);
     }
 
-    // activacion de tarjeta en "pendiente activacion"
-//    @PutMapping("/activacion")
-//    public ResponseEntity<String> activacionTarjeta(@RequestBody Tarjeta tarjeta){
-//        if (tarjetaService.tarjetaPorId(tarjeta.getIdTarjeta()).isEmpty() || tarjeta.getEstado().contains("pendiente activacion")==false) {
-//            return ResponseEntity.ok("Fallida");
-//        }
-//        tarjetaService.activacionTarjeta(tarjeta);
-//        return ResponseEntity.ok("Finalizada");
-//    }
+    // Activacion de tarjeta en "pendiente activacion"
     @PutMapping("/activacion")
     public ResponseEntity<String> activacionTarjeta(@RequestBody Tarjeta tarjeta){
-        if ( tarjetaService.tarjetaPorId(tarjeta.getIdTarjeta()).isEmpty() || tarjeta.getSaldo()<10000 ){
+        if ( tarjetaService.tarjetaPorId(tarjeta.getIdTarjeta()).isEmpty() || tarjeta.getSaldo()<10000 || tarjeta.getEstado().contains("activada")==false ){
             return ResponseEntity.ok("Fallida");
-        }
+        } /*else if ( tarjeta.getEstado().contains("activada") ){
+            return ResponseEntity.ok("Su tarjeta ya se encuentra activada");
+        } */
         tarjetaService.activacionTarjeta(tarjeta);
         return ResponseEntity.ok("Finalizada");
     }
 
+    // Gestion limites extraccion
+    @PutMapping("/limiteExtraccion/{numTarjeta}/{limExtraccion}")
+    public ResponseEntity<String> nuevoLimite(@PathVariable Integer numTarjeta, @PathVariable Integer limExtraccion){
+
+        String mensaje = "Nuevo limite de extraccion de "+numTarjeta+" es " + limExtraccion;
+        return ResponseEntity.ok(mensaje);
+    }
 
 }

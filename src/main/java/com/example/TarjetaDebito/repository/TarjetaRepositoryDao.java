@@ -23,6 +23,8 @@ public interface TarjetaRepositoryDao extends CrudRepository<Tarjeta, Integer> {
     @Query(value = "Select * from tarjetas where id_tarjeta=:idTarjeta", nativeQuery = true)
     List<Tarjeta> findTarjetaById(@Param("idTarjeta") Integer idTajeta);
 
-    @Query(value = "Update tarjetas set estado=:estado where id_tarjeta=:idTarjeta and num_tarjeta=:numTarjeta", nativeQuery = true)
+    @Query(value = "UPDATE tarjetas set estado=:estado where id_tarjeta=:idTarjeta and num_tarjeta=:numTarjeta", nativeQuery = true)
     List<Tarjeta> activarTarjeta(String estado, Integer idTarjeta, Integer numTarjeta);
+
+
 }
