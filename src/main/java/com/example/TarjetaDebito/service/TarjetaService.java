@@ -34,10 +34,17 @@ public class TarjetaService {
     public Tarjeta activacionTarjeta(Tarjeta tarjeta) {
         return tarjetaRepositoryDao.save(tarjeta);
     }
+//    public void activacionTarjeta(Integer idTarjeta, Integer numTarjeta, String estado, Integer saldo) {
+//        tarjetaRepositoryDao.activarTarjeta(estado,saldo,idTarjeta,numTarjeta);
+//    }
 
-    public void nuevoLimExtraccion(Integer numTarjeta, Integer limExtraccion) {
-        tarjetaRepositoryDao.nuevoLimite(limExtraccion, numTarjeta);
+    public void nuevoLimExtraccion(Integer idTarjeta,Integer numTarjeta, Integer limExtraccion) {
+        tarjetaRepositoryDao.nuevoLimite(limExtraccion, idTarjeta, numTarjeta);
     }
 
+
+    public void bloqueoTarjeta(Integer idTarjeta, Integer numTarjeta, String estado) {
+        tarjetaRepositoryDao.bloquearTarjeta(estado,idTarjeta,numTarjeta);
+    }
 
 }

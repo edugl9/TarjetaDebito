@@ -1,6 +1,7 @@
 package com.example.TarjetaDebito.repository;
 
 import com.example.TarjetaDebito.entity.Tarjeta;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
@@ -22,11 +23,15 @@ public interface TarjetaRepositoryDao extends CrudRepository<Tarjeta, Integer> {
     @Query(value = "Select * from tarjetas where id_tarjeta=:idTarjeta", nativeQuery = true)
     List<Tarjeta> findTarjetaById(@Param("idTarjeta") Integer idTajeta);
 
-    @Query(value = "UPDATE tarjetas set estado=:estado where id_tarjeta=:idTarjeta and num_tarjeta=:numTarjeta", nativeQuery = true)
-    List<Tarjeta> activarTarjeta(String estado, Integer idTarjeta, Integer numTarjeta);
+//    @Modifying
+//    @Query(value = "UPDATE tarjetas set estado=:estado, saldo=:saldo where id_tarjeta=:idTarjeta and num_tarjeta=:numTarjeta", nativeQuery = true)
+//    public void activarTarjeta(String estado, Integer saldo, Integer idTarjeta, Integer numTarjeta);
 
+    @Modifying
+    @Query(value = "update tarjetas set lim_extraccion=:limExtraccion where id_tarjeta=:idTarjeta and num_tarjeta=:numTarjeta", nativeQuery = true)
+    public void nuevoLimite(Integer limExtraccion, Integer idTarjeta, Integer numTarjeta);
 
-
-    @Query(value = "update tarjetas set lim_extraccion=:limExtraccion where num_tarjeta=:numTarjeta", nativeQuery = true)
-    public void nuevoLimite(Integer limExtraccion, Integer numTarjeta);
+    @Modifying
+    @Query(value = "update tarjetas set estado=:estado where id_tarjeta=:idTarjeta and num_tarjeta=:numTarjeta", nativeQuery = true)
+    public void bloquearTarjeta(String estado, Integer idTarjeta, Integer numTarjeta);
 }

@@ -45,19 +45,30 @@ public class TarjetaController {
     public ResponseEntity<String> activacionTarjeta(@RequestBody Tarjeta tarjeta){
         if ( tarjetaService.tarjetaPorId(tarjeta.getIdTarjeta()).isEmpty() || tarjeta.getSaldo()<10000 || tarjeta.getEstado().contains("activada")==false ){
             return ResponseEntity.ok("Fallida");
-        } /*else if ( tarjeta.getEstado().contains("activada") ){
-            return ResponseEntity.ok("Su tarjeta ya se encuentra activada");
-        } */
+        }
         tarjetaService.activacionTarjeta(tarjeta);
         return ResponseEntity.ok("Finalizada");
     }
 
     // Gestion limites extraccion
-    @PutMapping("/limiteExtraccion/{numTarjeta}/{limExtraccion}")
-    public ResponseEntity<String> nuevoLimite(@PathVariable Integer numTarjeta, @PathVariable Integer limExtraccion){
-        tarjetaService.nuevoLimExtraccion(numTarjeta,limExtraccion);
+    @PutMapping("/limiteExtraccion/{idTarjeta}/{numTarjeta}/{limExtraccion}")
+    public ResponseEntity<String> nuevoLimite(@PathVariable Integer idTarjeta, @PathVariable Integer numTarjeta, @PathVariable Integer limExtraccion){
+        if ( tarjetaService.tarjetaPorId(idTarjeta).isEmpty() ){
+            return ResponseEntity.ok("Fallida");
+        }
+        tarjetaService.nuevoLimExtraccion(idTarjeta,numTarjeta,limExtraccion);
         String mensaje = "Nuevo limite de extraccion de " + numTarjeta + " es " + limExtraccion;
         return ResponseEntity.ok(mensaje);
+    }
+
+    // Bloqueo de tarjeta
+    @PutMapping("/bloqueoTarjeta/{idTarjeta}/{numTarjeta}/{estado}")
+    public ResponseEntity<String> bloqueoTarjeta(@PathVariable Integer idTarjeta, @PathVariable Integer numTarjeta, @PathVariable String estado){
+        if ( tarjetaService.tarjetaPorId(idTarjeta).isEmpty() || numTarjeta==null || estado.contains("bloqueada")==false ){
+            return ResponseEntity.ok("Fallida");
+        }
+        tarjetaService.bloqueoTarjeta(idTarjeta,numTarjeta,estado);
+        return ResponseEntity.ok("Finalizada");
     }
 
 }
