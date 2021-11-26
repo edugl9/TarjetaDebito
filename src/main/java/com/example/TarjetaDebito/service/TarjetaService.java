@@ -3,6 +3,7 @@ package com.example.TarjetaDebito.service;
 import com.example.TarjetaDebito.entity.Tarjeta;
 import com.example.TarjetaDebito.repository.TarjetaRepositoryDao;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -33,4 +34,10 @@ public class TarjetaService {
     public Tarjeta activacionTarjeta(Tarjeta tarjeta) {
         return tarjetaRepositoryDao.save(tarjeta);
     }
+
+    public void nuevoLimExtraccion(Integer numTarjeta, Integer limExtraccion) {
+        tarjetaRepositoryDao.nuevoLimite(limExtraccion, numTarjeta);
+    }
+
+
 }

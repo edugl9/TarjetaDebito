@@ -7,7 +7,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 @RequestMapping("/tarjetas")
@@ -56,8 +55,8 @@ public class TarjetaController {
     // Gestion limites extraccion
     @PutMapping("/limiteExtraccion/{numTarjeta}/{limExtraccion}")
     public ResponseEntity<String> nuevoLimite(@PathVariable Integer numTarjeta, @PathVariable Integer limExtraccion){
-
-        String mensaje = "Nuevo limite de extraccion de "+numTarjeta+" es " + limExtraccion;
+        tarjetaService.nuevoLimExtraccion(numTarjeta,limExtraccion);
+        String mensaje = "Nuevo limite de extraccion de " + numTarjeta + " es " + limExtraccion;
         return ResponseEntity.ok(mensaje);
     }
 

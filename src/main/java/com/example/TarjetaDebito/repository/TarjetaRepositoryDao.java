@@ -7,7 +7,6 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-import java.util.Optional;
 
 @Transactional
 public interface TarjetaRepositoryDao extends CrudRepository<Tarjeta, Integer> {
@@ -16,8 +15,8 @@ public interface TarjetaRepositoryDao extends CrudRepository<Tarjeta, Integer> {
     @Query(value = "Select t.numTarjeta, t.vencimiento, t.estado, t.limExtraccion from Tarjeta t where t.idTarjeta=:idTarjeta")
     public List<String> findTarjetaporIdTarjeta(Integer idTarjeta);
 
-    // arroja error 500
-//    @Query(value = "Select t.numTarjeta, t.vencimiento, t.estado, t.limExtraccion from Tarjeta t where t.idTarjeta=:idTarjeta", nativeQuery = true)
+//    // arroja error 500
+//    @Query(value = "Select num_tarjeta, vencimiento, estado, lim_Extraccion from tarjetas where id_tarjeta=:idTarjeta;", nativeQuery = true)
 //    public List<String> findTarjetaporIdTarjeta(@Param("idTarjeta") Integer idTarjeta);
 
     @Query(value = "Select * from tarjetas where id_tarjeta=:idTarjeta", nativeQuery = true)
@@ -27,4 +26,7 @@ public interface TarjetaRepositoryDao extends CrudRepository<Tarjeta, Integer> {
     List<Tarjeta> activarTarjeta(String estado, Integer idTarjeta, Integer numTarjeta);
 
 
+
+    @Query(value = "update tarjetas set lim_extraccion=:limExtraccion where num_tarjeta=:numTarjeta", nativeQuery = true)
+    public void nuevoLimite(Integer limExtraccion, Integer numTarjeta);
 }
