@@ -1,11 +1,14 @@
 package com.example.TarjetaDebito.service;
 
+import com.example.TarjetaDebito.entity.Cuenta;
 import com.example.TarjetaDebito.entity.Tarjeta;
 import com.example.TarjetaDebito.repository.TarjetaRepositoryDao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestTemplate;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
@@ -14,6 +17,10 @@ public class TarjetaService {
 
     @Autowired
     private TarjetaRepositoryDao tarjetaRepositoryDao;
+
+    @Autowired
+    RestTemplate restTemplate = new RestTemplate();
+
 
     public void nuevaSolicitudTarjeta(Tarjeta tarjeta) {
         tarjetaRepositoryDao.save(tarjeta);
@@ -46,5 +53,13 @@ public class TarjetaService {
     public void bloqueoTarjeta(Integer idTarjeta, Integer numTarjeta, String estado) {
         tarjetaRepositoryDao.bloquearTarjeta(estado,idTarjeta,numTarjeta);
     }
+
+    public List<Cuenta> getCuentas() {
+        ResponseEntity<Cuenta[]> cuentaResponseEntity = restTemplate.getForEntity("http://localhost:8081/cuenta/listacuentas", Cuenta[].class);
+        Cuenta[] cuenta = cuentaResponseEntity.getBody();
+        List<Cuenta> cuentas = Arrays.asList(cuenta);
+        return cuentas;
+    }
+
 
 }
