@@ -23,6 +23,7 @@ public class TarjetaService {
 
 
     public void nuevaSolicitudTarjeta(Tarjeta tarjeta) {
+
         tarjetaRepositoryDao.save(tarjeta);
     }
 
@@ -45,13 +46,13 @@ public class TarjetaService {
 //        tarjetaRepositoryDao.activarTarjeta(estado,saldo,idTarjeta,numTarjeta);
 //    }
 
-    public void nuevoLimExtraccion(Integer idTarjeta,Integer numTarjeta, Integer limExtraccion) {
+    public void nuevoLimExtraccion(Integer idTarjeta, Integer numTarjeta, Integer limExtraccion) {
         tarjetaRepositoryDao.nuevoLimite(limExtraccion, idTarjeta, numTarjeta);
     }
 
 
     public void bloqueoTarjeta(Integer idTarjeta, Integer numTarjeta, String estado) {
-        tarjetaRepositoryDao.bloquearTarjeta(estado,idTarjeta,numTarjeta);
+        tarjetaRepositoryDao.bloquearTarjeta(estado, idTarjeta, numTarjeta);
     }
 
     public List<Cuenta> getCuentas() {
@@ -59,6 +60,17 @@ public class TarjetaService {
         Cuenta[] cuenta = cuentaResponseEntity.getBody();
         List<Cuenta> cuentas = Arrays.asList(cuenta);
         return cuentas;
+    }
+
+    public Cuenta buscarCuenta(Integer numeroCuenta) {
+        List<Cuenta> cuentas = getCuentas();
+        Cuenta cuenta = new Cuenta();
+        for (Cuenta c : cuentas) {
+            if (c.getNumeroCuenta().equals(numeroCuenta)) {
+                return c;
+            }
+        }
+        return cuenta;
     }
 
 

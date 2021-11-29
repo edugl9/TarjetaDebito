@@ -20,7 +20,8 @@ public class Tarjeta {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Integer idTarjeta; // relacion al usuario
+    private Integer idTarjeta;
+    private Integer numeroCuenta;// relacion al usuario
     private Integer numTarjeta; // nuevo numero sea nueva/reposicion
     private String marca;
     private String tipo;
