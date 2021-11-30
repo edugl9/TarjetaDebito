@@ -1,5 +1,6 @@
 package com.example.TarjetaDebito.controller;
 
+import com.example.TarjetaDebito.entity.Compra;
 import com.example.TarjetaDebito.entity.Cuenta;
 import com.example.TarjetaDebito.entity.Tarjeta;
 import com.example.TarjetaDebito.service.TarjetaService;
@@ -7,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Calendar;
 import java.util.List;
 
 @RestController
@@ -75,6 +77,12 @@ public class TarjetaController {
         }
         tarjetaService.bloqueoTarjeta(idTarjeta, numTarjeta, estado);
         return ResponseEntity.ok("Finalizada");
+    }
+
+    // Consulta compras
+    @GetMapping("/compras/{numTarjeta}/{fechaDesde}/{fechaHasta}")
+    public ResponseEntity<String> getCompras(@PathVariable Integer numTarjeta, @PathVariable Calendar fechaDesde, @PathVariable Calendar fechaHasta){
+        return tarjetaService.getCompras(numTarjeta,fechaDesde,fechaHasta);
     }
 
 }

@@ -1,5 +1,6 @@
 package com.example.TarjetaDebito.service;
 
+import com.example.TarjetaDebito.entity.Compra;
 import com.example.TarjetaDebito.entity.Cuenta;
 import com.example.TarjetaDebito.entity.Tarjeta;
 import com.example.TarjetaDebito.repository.TarjetaRepositoryDao;
@@ -9,6 +10,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
 import java.util.Arrays;
+import java.util.Calendar;
 import java.util.List;
 import java.util.Optional;
 
@@ -74,4 +76,7 @@ public class TarjetaService {
     }
 
 
+    public ResponseEntity<String> getCompras(Integer numTarjeta, Calendar fechaDesde, Calendar fechaHasta) {
+        return (ResponseEntity<String>) tarjetaRepositoryDao.consultaComprasFecha(numTarjeta, fechaDesde,fechaHasta);
+    }
 }

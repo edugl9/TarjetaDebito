@@ -1,12 +1,15 @@
 package com.example.TarjetaDebito.repository;
 
+import com.example.TarjetaDebito.entity.Compra;
 import com.example.TarjetaDebito.entity.Tarjeta;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
+import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Calendar;
 import java.util.List;
 
 @Transactional
@@ -34,4 +37,7 @@ public interface TarjetaRepositoryDao extends CrudRepository<Tarjeta, Integer> {
     @Modifying
     @Query(value = "update tarjetas set estado=:estado where id_tarjeta=:idTarjeta and num_tarjeta=:numTarjeta", nativeQuery = true)
     public void bloquearTarjeta(String estado, Integer idTarjeta, Integer numTarjeta);
+
+    @Query(value = "Select num_tarjeta, fecha, importe from compras where num_tarjeta=:numTarjeta and fecha Between fecha=:fechaDesde and fecha=:fechaHasta", nativeQuery = true)
+    List<Compra> consultaComprasFecha(@Param("numTarjeta") Integer numTarjeta, @Param("fechaDesde") Calendar fechaDesde, @Param("fechaHasta") Calendar fechaHasta);
 }
