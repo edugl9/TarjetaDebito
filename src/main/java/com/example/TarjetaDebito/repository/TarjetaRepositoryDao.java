@@ -40,4 +40,8 @@ public interface TarjetaRepositoryDao extends CrudRepository<Tarjeta, Integer> {
 
     @Query(value = "Select num_tarjeta, fecha, importe from compras where num_tarjeta=:numTarjeta and fecha Between fecha=:fechaDesde and fecha=:fechaHasta", nativeQuery = true)
     List<Compra> consultaComprasFecha(@Param("numTarjeta") Integer numTarjeta, @Param("fechaDesde") Calendar fechaDesde, @Param("fechaHasta") Calendar fechaHasta);
+
+
+
+    List<Tarjeta> findAllByNumeroCuenta(Integer numeroCuenta);
 }

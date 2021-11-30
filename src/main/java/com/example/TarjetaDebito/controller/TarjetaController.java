@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.Calendar;
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/tarjetas")
@@ -83,6 +84,12 @@ public class TarjetaController {
     @GetMapping("/compras/{numTarjeta}/{fechaDesde}/{fechaHasta}")
     public ResponseEntity<String> getCompras(@PathVariable Integer numTarjeta, @PathVariable Calendar fechaDesde, @PathVariable Calendar fechaHasta){
         return tarjetaService.getCompras(numTarjeta,fechaDesde,fechaHasta);
+    }
+
+
+    @GetMapping("/tarjetasdecuenta/{numeroCuenta}")
+    public List<Tarjeta> getTarjetasCuenta(@PathVariable Integer numeroCuenta){
+        return tarjetaService.getTarjetasPorCuenta(numeroCuenta);
     }
 
 }

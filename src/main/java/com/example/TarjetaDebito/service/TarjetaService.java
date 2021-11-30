@@ -79,4 +79,8 @@ public class TarjetaService {
     public ResponseEntity<String> getCompras(Integer numTarjeta, Calendar fechaDesde, Calendar fechaHasta) {
         return (ResponseEntity<String>) tarjetaRepositoryDao.consultaComprasFecha(numTarjeta, fechaDesde,fechaHasta);
     }
+
+    public List<Tarjeta> getTarjetasPorCuenta(Integer numeroCuenta) {
+        return tarjetaRepositoryDao.findAllByNumeroCuenta(numeroCuenta);
+    }
 }
