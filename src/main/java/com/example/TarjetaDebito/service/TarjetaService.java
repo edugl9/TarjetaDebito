@@ -58,7 +58,7 @@ public class TarjetaService {
     }
 
     public List<Cuenta> getCuentas() {
-        ResponseEntity<Cuenta[]> cuentaResponseEntity = restTemplate.getForEntity("http://localhost:8081/cuenta/listacuentas", Cuenta[].class);
+        ResponseEntity<Cuenta[]> cuentaResponseEntity = restTemplate.getForEntity("https://cuentasequipod.herokuapp.com/cuenta/listacuentas", Cuenta[].class);
         Cuenta[] cuenta = cuentaResponseEntity.getBody();
         List<Cuenta> cuentas = Arrays.asList(cuenta);
         return cuentas;
